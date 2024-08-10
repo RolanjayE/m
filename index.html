@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Message</title>
+    <style>
+        /* Style for the main content */
+        *{
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        .main {
+            font-family: Arial, sans-serif;
+            font-size: 16px;
+            line-height: 1.5;
+            padding: 2rem;
+            white-space: pre-line;
+            background-color: black;
+        }
+
+        /* Hide the paragraphs initially */
+        .main p {
+            color: white;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="main">
+        <p data-text="Hi, it’s been a long time since I last saw you smiling. I’ve been working on my sensitivity and anxious attachment, and I think I’ve gotten over it now. I know I’ve hurt you and haven’t treated you the way you deserve. I haven’t reached out because I dont have topics that would interest you, but please know that I care about you."></p>
+
+        <p data-text="Your class is coming up soon. Are you excited? How are you feeling ... happy, sad? Next week marks the start of our busy days. This year will bring both good and bad days, but that's just part of life. Even when things seem unfair, remember to enjoy every moment. You still have family, friends, and me who love you. Enjoy yourself and congratulations on starting your third year of college—you’re almost at the finish line."></p>
+
+        <p data-text="I’ve been feeling weak and have been throwing up my food for the past three days, but don’t worry—I’m okay. I’ve been taking my medicine and I’m starting to feel better now."></p>
+    </div>
+
+    <script>
+        function typeWriter(text, element, delay, callback) {
+            let i = 0;
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, delay);
+                } else if (callback) {
+                    callback(); // Call the next function when done
+                }
+            }
+            type();
+        }
+
+        // Function to start the typewriter effect for all paragraphs
+        function startTypewriterEffect() {
+            const paragraphs = document.querySelectorAll('.main p');
+            let currentParagraph = 0;
+
+            function showNextParagraph() {
+                if (currentParagraph < paragraphs.length) {
+                    const element = paragraphs[currentParagraph];
+                    element.style.display = "block"; // Show the paragraph
+                    const text = element.getAttribute('data-text');
+                    element.innerHTML = ""; // Clear any pre-filled text
+                    typeWriter(text, element, 50, showNextParagraph);
+                    currentParagraph++;
+                }
+            }
+
+            showNextParagraph();
+        }
+
+        // Start the typewriter effect when the page loads
+        window.onload = startTypewriterEffect;
+    </script>
+
+</body>
+</html>
